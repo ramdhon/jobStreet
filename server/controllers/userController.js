@@ -47,6 +47,20 @@ class UserController{
     
   }
 
+  static createUser(req, res) {
+    User.create({
+      name: req.body.name,
+      password: req.body.password,
+      email: req.body.email,
+    })
+    .then((newUser) => {
+      res.status(201).json(newUser)
+    })
+    .catch(err => {
+      res.status(500).json(err.message)
+    })
+  }
+
 }
 
 module.exports = UserController

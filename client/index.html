@@ -15,7 +15,7 @@
 
 <body>
 
-  
+
   <div id="show-login">
     <div class="login d-flex justify-content-center min-height-80">
       <div class="border p-5 bg-login" id="outer-form">
@@ -36,6 +36,9 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
+            <div class="p-2">
+              <span> <a href="" onclick="registerForm()">Not Registered?</a></span>
+            </div>
             <div class="d-flex flex-column justify-content-center " style="width: 120px;margin: 0 auto;">
               <button type="submit" class="btn btn-primary btn-sm my-3">Submit</button>
               <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -46,7 +49,37 @@
     </div>
   </div>
 
-  <div id="content" >
+
+  <div id="show-register">
+    <div class="register d-flex justify-content-center min-height-80">
+      <div class="border p-2 bg-register">
+        <form onsubmit="register()" >
+            <div class="border p-5 bg-white">
+                <a  href="" onclick="backRegister()"><span>Already Member?</span></a>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Full Name</label>
+              <input type="text" class="form-control" id="fullname4" placeholder="Fullname...">
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary btn-md">Register</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Jobstreet</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -54,8 +87,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="d-flex justify-content-center">
-          <a href="#" onclick="signOut();" id="show-signout">Sign out</a>
-        </div>
+        <a href="#" onclick="signOut();" id="show-signout">Sign out</a>
+      </div>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
