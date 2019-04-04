@@ -7,6 +7,9 @@ const cors = require('cors');
 
 const router = require('./router');
 
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/jobstreet',  { useNewUrlParser : true})
+
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
