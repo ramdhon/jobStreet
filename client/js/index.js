@@ -3,6 +3,11 @@ if (!localStorage.getItem('token')) {
   $('#content').hide()
   $('#show-signout').hide()
   $('#show-register').hide()
+} else {
+  $('#content').show()
+  $('#show-signout').show()
+  $('#show-login').hide()
+  $('#show-register').hide()
 }
 // $('#show-login').hide()
 
@@ -15,7 +20,7 @@ function registerForm() {
 function backRegister() {
   event.preventDefault()
   $('#show-register').hide()
-  $('#show-login').show()  
+  $('#show-login').show()
 }
 
 
@@ -44,11 +49,34 @@ function register() {
     .fail((jqXHR, textStatus) => {
       console.log(`request failed ${textStatus}`)
     })
-
-
 }
 
-// hidelogin()
+
+function normalLogin() {
+  event.preventDefault()
+  let email = $('#exampleInputEmail1').val()
+  let password = $('#exampleInputPassword1').val()
+
+  $.ajax({
+      method: 'POST',
+      url: `http://localhost:3000/users/userlogin`,
+      data: {
+        email,
+        password
+      }
+    })
+    .done((response) => {
+      localStorage.setItem('token', response)
+      $('#show-login').hide()
+      $('#content').show()
+      $('#show-signout').show()
+
+    })
+    .fail((jqXHR, textStatus) => {
+      console.log(`request failed ${textStatus}`)
+    })
+}
+
 
 function onSignIn(googleUser) {
   const profile = googleUser.getBasicProfile();
