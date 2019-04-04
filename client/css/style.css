@@ -8,7 +8,7 @@
 }
 
 
-.login {
+.login, .register {
   height: 80vh;
   flex-direction: column;
   align-items: center;
@@ -16,5 +16,10 @@
 
 .bg-login{
   background: #eaeaea;
+  border-radius: 10px;
+}
+
+.bg-register{
+  background: #1a7d9e;
   border-radius: 10px;
 }
