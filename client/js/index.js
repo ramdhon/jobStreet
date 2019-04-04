@@ -1,11 +1,7 @@
-function hidelogin() {
-  $('#show-login').hide()
+if(!localStorage.getItem('token')) {
+  $('#show-login').show()
+  $('#content').hide()
   $('#show-signout').hide()
-}
-
-if(localStorage) {
-  // $('#show-login').hide()
-  // $('#show-signout').hide()
 }
 
 
@@ -28,6 +24,9 @@ function onSignIn(googleUser) {
   })
     .done( response => {
       localStorage.setItem('token', response)
+      $('#show-login').hide()
+      $('#content').show()
+      $('#show-signout').show()
     })
     .fail((jqXHR, textStatus) => {
       console.log(`request failed ${textStatus}`)
@@ -38,6 +37,10 @@ function onSignIn(googleUser) {
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
+    localStorage.removeItem('token')
+    $('#show-login').show()
+    $('#content').hide()
+    $('#show-signout').hide()
     console.log('User signed out.');
   });
 }
