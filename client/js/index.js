@@ -116,7 +116,6 @@ function signOut() {
     $('#show-signout').hide()
     console.log('User signed out.');
   });
-<<<<<<< HEAD
 }
 =======
 }
@@ -164,4 +163,3 @@ function listNews(){
 $(document).ready(function(){
   listNews()
 })
->>>>>>> Create server and client about news
