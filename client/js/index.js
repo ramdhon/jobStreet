@@ -23,7 +23,6 @@ function backRegister() {
   $('#show-login').show()
 }
 
-
 function register() {
   event.preventDefault()
   let email = $('#inputEmail4').val()
@@ -134,5 +133,71 @@ function signOut() {
   });
 }
 
+<<<<<<< HEAD
+=======
+function listNews(){
+  $.ajax({
+    url: 'http://localhost:3000/news',
+    method: 'GET'
+  })
+  .done(function(response){
+    console.log(response.articles)
+    for(news of response.articles){
+      // $('#listNews').append("tes")
+
+      let publish = new Date()-Number(new Date(news.publishedAt))
+      let time = Math.ceil(publish/(60*1000))
+      let teks = ''
+      if(time>(24*60)){
+        time = Math.floor(time/(24*60))
+        teks = `${time} day${time > 1 && 's' || ''} ago`
+      }else if(time>60){
+        time = Math.floor(time/60)
+        teks = `${time} hour${time > 1 && 's' || ''} ago`
+      }else{
+        teks = `${time} minute${time > 1 && 's' || ''} ago`
+      }
+      //507
+      $('#listNews').append(`
+      <a href="${news.url}" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">${news.title}</h5>
+                <small>${teks}</small>
+              </div>
+              <p class="mb-1">${news.description}</p>
+              <small><i>Source: ${news.source.name}</i></small>
+            </a> `)
+    }
+  })
+  .fail(function(jqXHR, textStatus){
+    console.log('request failed', textStatus)    
+  })
+}
+
+$(document).ready(function(){
+  listNews()
+})
+
+function getCurrency() {
+  event.preventDefault()
+  $.ajax({
+    method: "GET",
+    url : 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
+  })
+    .done(response=> {
+      let data = ''
+      for( rate in response.rates) {
+        data += `${rate}: ${response.rates[rate].toFixed(2)}  \n`
+      }
+      swal({
+        title: "Salary",
+        text: `${data}`,
+        button: "ok",
+      });
+    })
+    .fail((jqXHR, textStatus) => {
+      console.log(`request failed ${textStatus}`)
+    })
+>>>>>>> 0b713e31679557f2fb95d580694c7447ecbca284
 
 
