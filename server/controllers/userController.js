@@ -83,7 +83,7 @@ class UserController {
         res.status(201).json(newUser)
       })
       .catch(err => {
-        // console.log(err)
+        console.log(err)
         res.status(400).json({err})
       })
   }

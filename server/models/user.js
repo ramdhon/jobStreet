@@ -46,7 +46,6 @@ const UserSchema = new Schema({
         if(value.length === 0) {
           return false
         }
-        console.log(value)
       },
       message : `Password cannot be empty`
     }]
@@ -54,9 +53,8 @@ const UserSchema = new Schema({
   avatar: String
 })
 
-UserSchema.pre('validate', function(doc, next) {
+UserSchema.post('validate', function(doc, next) {
   doc.password = hash(doc.password)
-  doc.save()
   next()
 })
 

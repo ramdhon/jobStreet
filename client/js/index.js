@@ -28,7 +28,7 @@ function register() {
   let email = $('#inputEmail4').val()
   let password = $('#inputPassword4').val()
   let name = $('#fullname4').val()
-
+  
   $.ajax({
       method: 'POST',
       url: `http://localhost:3000/users/register`,
@@ -54,7 +54,6 @@ function register() {
           errors += `${err.responseJSON.err.errors[keys].message} \n`
         }
       }
-      console.log(errors)
       swal({
         text: errors,
         icon: "warning",
@@ -139,7 +138,6 @@ function listNews() {
       method: 'GET'
     })
     .done(function (response) {
-      console.log(response.articles)
       for (news of response.articles) {
         // $('#listNews').append("tes")
 

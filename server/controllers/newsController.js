@@ -15,15 +15,10 @@ class News {
         ax
             .get(`https://newsapi.org/v2/everything?q=job-recruitment-hiring&from=${teks}&sortBy=publishedAt&apiKey=${process.env.NEWS_API_KEY}`)
             .then(({data})=>{
-                console.log("MASUK");
-                
-                console.log(data);
-                
                 res.status(200).json(data)
             })
             .catch(err=>{
-                console.log(err.message)
-                // res.status(500).json(err)
+                res.status(500).json(err)
             })
     }
 }
