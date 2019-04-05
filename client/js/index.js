@@ -133,8 +133,6 @@ function signOut() {
   });
 }
 
-<<<<<<< HEAD
-=======
 function listNews(){
   $.ajax({
     url: 'http://localhost:3000/news',
@@ -198,6 +196,5 @@ function getCurrency() {
     .fail((jqXHR, textStatus) => {
       console.log(`request failed ${textStatus}`)
     })
->>>>>>> 0b713e31679557f2fb95d580694c7447ecbca284
 
 
