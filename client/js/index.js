@@ -3,6 +3,7 @@ if (!localStorage.getItem('token')) {
   $('#content').hide()
   $('#show-signout').hide()
   $('#show-register').hide()
+
 } else {
   $('#content').show()
   $('#show-signout').show()
@@ -40,17 +41,17 @@ function register() {
     .done(response => {
       $('#show-login').show()
       $('#show-register').hide()
-     $('#inputEmail4').val('')
+      $('#inputEmail4').val('')
       $('#inputPassword4').val('')
-     $('#fullname4').val('') 
+      $('#fullname4').val('')
 
 
     })
     .fail((err, textStatus) => {
       let errors = ''
       for (let keys in err.responseJSON.err.errors) {
-        if(err.responseJSON.err.errors[keys].message) {
-          errors+= `${err.responseJSON.err.errors[keys].message} \n`
+        if (err.responseJSON.err.errors[keys].message) {
+          errors += `${err.responseJSON.err.errors[keys].message} \n`
         }
       }
       console.log(errors)
@@ -132,30 +133,30 @@ function signOut() {
   });
 }
 
-function listNews(){
+function listNews() {
   $.ajax({
-    url: 'http://localhost:3000/news',
-    method: 'GET'
-  })
-  .done(function(response){
-    console.log(response.articles)
-    for(news of response.articles){
-      // $('#listNews').append("tes")
+      url: 'http://localhost:3000/news',
+      method: 'GET'
+    })
+    .done(function (response) {
+      console.log(response.articles)
+      for (news of response.articles) {
+        // $('#listNews').append("tes")
 
-      let publish = new Date()-Number(new Date(news.publishedAt))
-      let time = Math.ceil(publish/(60*1000))
-      let teks = ''
-      if(time>(24*60)){
-        time = Math.floor(time/(24*60))
-        teks = `${time} day${time > 1 && 's' || ''} ago`
-      }else if(time>60){
-        time = Math.floor(time/60)
-        teks = `${time} hour${time > 1 && 's' || ''} ago`
-      }else{
-        teks = `${time} minute${time > 1 && 's' || ''} ago`
-      }
-      //507
-      $('#listNews').append(`
+        let publish = new Date() - Number(new Date(news.publishedAt))
+        let time = Math.ceil(publish / (60 * 1000))
+        let teks = ''
+        if (time > (24 * 60)) {
+          time = Math.floor(time / (24 * 60))
+          teks = `${time} day${time > 1 && 's' || ''} ago`
+        } else if (time > 60) {
+          time = Math.floor(time / 60)
+          teks = `${time} hour${time > 1 && 's' || ''} ago`
+        } else {
+          teks = `${time} minute${time > 1 && 's' || ''} ago`
+        }
+        //507
+        $('#listNews').append(`
       <a href="${news.url}" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">${news.title}</h5>
@@ -164,37 +165,13 @@ function listNews(){
               <p class="mb-1">${news.description}</p>
               <small><i>Source: ${news.source.name}</i></small>
             </a> `)
-    }
-  })
-  .fail(function(jqXHR, textStatus){
-    console.log('request failed', textStatus)    
-  })
+      }
+    })
+    .fail(function (jqXHR, textStatus) {
+      console.log('request failed', textStatus)
+    })
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
   listNews()
 })
-
-function getCurrency() {
-  event.preventDefault()
-  $.ajax({
-    method: "GET",
-    url : 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
-  })
-    .done(response=> {
-      let data = ''
-      for( rate in response.rates) {
-        data += `${rate}: ${response.rates[rate].toFixed(2)}  \n`
-      }
-      swal({
-        title: "Salary",
-        text: `${data}`,
-        button: "ok",
-      });
-    })
-    .fail((jqXHR, textStatus) => {
-      console.log(`request failed ${textStatus}`)
-    })
-
-}
-
