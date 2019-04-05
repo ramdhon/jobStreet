@@ -9,7 +9,6 @@ if (!localStorage.getItem('token')) {
   $('#show-login').hide()
   $('#show-register').hide()
 }
-// $('#show-login').hide()
 
 function registerForm() {
   event.preventDefault()
@@ -40,13 +39,27 @@ function register() {
       }
     })
     .done(response => {
-      console.log(response)
       $('#show-login').show()
       $('#show-register').hide()
+     $('#inputEmail4').val('')
+      $('#inputPassword4').val('')
+     $('#fullname4').val('') 
 
 
     })
-    .fail((jqXHR, textStatus) => {
+    .fail((err, textStatus) => {
+      let errors = ''
+      for (let keys in err.responseJSON.err.errors) {
+        if(err.responseJSON.err.errors[keys].message) {
+          errors+= `${err.responseJSON.err.errors[keys].message} \n`
+        }
+      }
+      console.log(errors)
+      swal({
+        text: errors,
+        icon: "warning",
+        button: "Awwttss",
+      });
       console.log(`request failed ${textStatus}`)
     })
 }
@@ -72,7 +85,13 @@ function normalLogin() {
       $('#show-signout').show()
 
     })
-    .fail((jqXHR, textStatus) => {
+    .fail((err, textStatus) => {
+      let errors = err.responseJSON.message
+      swal({
+        text: errors,
+        icon: "warning",
+        button: "Awwttss",
+      });
       console.log(`request failed ${textStatus}`)
     })
 }
@@ -80,10 +99,6 @@ function normalLogin() {
 
 function onSignIn(googleUser) {
   const profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId());
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
   const {
     id_token
   } = googleUser.getAuthResponse()
@@ -117,3 +132,27 @@ function signOut() {
     console.log('User signed out.');
   });
 }
+
+function getCurrency() {
+  event.preventDefault()
+  $.ajax({
+    method: "GET",
+    url : 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
+  })
+    .done(response=> {
+      let data = ''
+      for( rate in response.rates) {
+        data += `${rate}: ${response.rates[rate].toFixed(2)}  \n`
+      }
+      swal({
+        title: "Salary",
+        text: `${data}`,
+        button: "ok",
+      });
+    })
+    .fail((jqXHR, textStatus) => {
+      console.log(`request failed ${textStatus}`)
+    })
+
+}
+
