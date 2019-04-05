@@ -88,9 +88,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        <form id="search" method="POST" class="form-inline my-2 my-lg-0">
+          <input id="what" class="form-control mr-sm-2" type="search" placeholder="Keywords" aria-label="Search">
+          <input id="where" class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">🔍</button>
         </form>
         <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
         <!-- <a href="#" onclick="signOut();">Sign out</a> -->
@@ -103,14 +104,7 @@
             <div>
               <p>JOBS</p>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Cras justo odio <span class="float-right"><a href="" onclick="getCurrency()"
-                    id="show-salary">salary</a></span> </li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
-              <li class="list-group-item">Morbi leo risus</li>
-              <li class="list-group-item">Porta ac consectetur ac</li>
-              <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
+            <ul id="list-jobs" class="list-group list-group-flush"></ul>
           </div>
         </div>
         <div class="col-sm-5">
@@ -166,6 +160,8 @@
   </script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="/js/index.js"></script>
+
+  <script src="/js/job.js"></script>
 </body>
 
 </html>
