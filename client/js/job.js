@@ -68,10 +68,9 @@ function getCurrency(curr) {
       url: 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
     })
     .done(response => {
-      console.log(response)
       let data = ''
       for (rate in response.rates) {
-        data += `${rate}: ${curr * response.rates[rate].toFixed(2)}  \n`
+        data += `${rate}: ${(curr * response.rates[rate]).toFixed(2)}  \n`
       }
       swal({
         title: "Salary",
