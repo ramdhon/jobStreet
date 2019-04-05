@@ -22,7 +22,6 @@ function backRegister() {
   $('#show-login').show()
 }
 
-
 function register() {
   event.preventDefault()
   let email = $('#inputEmail4').val()
@@ -132,7 +131,6 @@ function signOut() {
     console.log('User signed out.');
   });
 }
-
 
 function listNews(){
   $.ajax({
