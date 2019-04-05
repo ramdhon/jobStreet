@@ -24,6 +24,7 @@ class UserController {
         })
       })
       .then((foundUser) => {
+        console.log(foundUser)
         if (foundUser) {
           const createPayload = {
             name: payload.name,
