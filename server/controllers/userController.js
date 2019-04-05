@@ -2,7 +2,7 @@ const User = require('../models/user')
 const axios = require('axios')
 const { sign } = require('../helper/jwt')
 
-const { hash } = require('../helper/bcrypt')
+const { hash, compare } = require('../helper/bcrypt')
 
 const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
@@ -54,7 +54,7 @@ class UserController {
       })
       .then(found => {
         if (found) {
-          if(req.body.password == found.password) {
+          if(compare(req.body.password, found.password)) {
             const createPayload = {
               name: req.body.name,
               email: req.body.email
@@ -83,7 +83,8 @@ class UserController {
         res.status(201).json(newUser)
       })
       .catch(err => {
-        res.status(500).json(err.message)
+        // console.log(err)
+        res.status(400).json({err})
       })
   }
 
