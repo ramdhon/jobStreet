@@ -1,7 +1,7 @@
 function fetchData(page) {
   // $('#search').serialize();
-  const what=$('#what').val();
-  const where=$('#where').val();
+  const what = $('#what').val();
+  const where = $('#where').val();
   console.log('>>>', what)
   console.log('>>>', where)
   // for(let i=0; i<10; i++) {
@@ -24,15 +24,15 @@ function fetchData(page) {
     event.preventDefault();
   }
   console.log(event)
-  
+
   $.ajax({
-    url: `http://localhost:3000/jobs/gb/${page}?what=${what}&where=${where}`,
-    method: 'GET'
-  })
+      url: `http://localhost:3000/jobs/gb/${page}?what=${what}&where=${where}`,
+      method: 'GET'
+    })
     .done(response => {
       // console.log('>>',response)
       $('#list-jobs').empty()
-      for(job of response) {
+      for (job of response) {
         $('#list-jobs').append(`<li class="list-group-item">
         <a href="${job.redirect_url}"><span class="h3">${job.title}</span></a>
         <br><span>${job.company.display_name}</span>
@@ -40,21 +40,47 @@ function fetchData(page) {
           <br><span>📍 ${job.location.display_name}</span>
           <br><span>${job.contract_time && job.contract_time.split('_').join(' ') || 'contract time not stated'}</span>
           <br><span>${job.contract_type || 'contract type not stated'}</span>
-          <br><br><span>Salary: ${(job.salary_min&&job.salary_max) && `£${job.salary_min} - £${job.salary_max}` || 'not stated'}</span>
-          <br><br><span>"${job.description}"</span>
+          <br><br><span class=""><a href="" onclick="getCurrency(${job.salary_min})"id="show-salary">salary</a></span><br>
+          <br><span>"${job.description}"</span>
         </div>
         ${what}
         </li>`)
-      }  
+      }
     })
     .fail((jqXHR, textStatus) => {
       console.log('request failed =>', textStatus);
     })
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   fetchData(1);
-  $('#search').submit(function() {
+  $('#search').submit(function () {
     fetchData(1);
   })
 })
+
+
+
+function getCurrency(curr) {
+  event.preventDefault()
+  $.ajax({
+      method: "GET",
+      url: 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
+    })
+    .done(response => {
+      console.log(response)
+      let data = ''
+      for (rate in response.rates) {
+        data += `${rate}: ${curr * response.rates[rate].toFixed(2)}  \n`
+      }
+      swal({
+        title: "Salary",
+        text: `${data}`,
+        button: "ok",
+      });
+    })
+    .fail((jqXHR, textStatus) => {
+      console.log(`request failed ${textStatus}`)
+    })
+
+}

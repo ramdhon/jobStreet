@@ -3,6 +3,7 @@ if (!localStorage.getItem('token')) {
   $('#content').hide()
   $('#show-signout').hide()
   $('#show-register').hide()
+  
 } else {
   $('#content').show()
   $('#show-signout').show()
@@ -133,26 +134,5 @@ function signOut() {
   });
 }
 
-function getCurrency() {
-  event.preventDefault()
-  $.ajax({
-    method: "GET",
-    url : 'https://api.exchangeratesapi.io/latest?symbols=IDR,GBP,EUR&base=USD'
-  })
-    .done(response=> {
-      let data = ''
-      for( rate in response.rates) {
-        data += `${rate}: ${response.rates[rate].toFixed(2)}  \n`
-      }
-      swal({
-        title: "Salary",
-        text: `${data}`,
-        button: "ok",
-      });
-    })
-    .fail((jqXHR, textStatus) => {
-      console.log(`request failed ${textStatus}`)
-    })
 
-}
 
