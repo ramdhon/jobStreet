@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="google-signin-client_id"
+    content="248246929203-hm6vhtiskj2kim1cgftr9rg7ulkpe0do.apps.googleusercontent.com">
+</head>
+
+<body>
+
+
+  <div id="show-login">
+    <div class="login d-flex justify-content-center min-height-80">
+      <div class="border p-5 bg-login" id="outer-form">
+        <h1 class="mb-3 login-header text-center">Login</h1>
+        <div class="border p-5 bg-white">
+          <form id="login-form" onsubmit="normalLogin()">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="p-2">
+              <span> <a href="" onclick="registerForm()">Not Registered?</a></span>
+            </div>
+            <div class="d-flex flex-column justify-content-center " style="width: 120px;margin: 0 auto;">
+              <button type="submit" class="btn btn-primary btn-sm my-3">Submit</button>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="show-register">
+    <div class="register d-flex justify-content-center min-height-80">
+      <div class="border p-2 bg-register">
+        <form onsubmit="register()">
+          <div class="border p-5 bg-white">
+            <a href="" onclick="backRegister()"><span>Already Member?</span></a>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Full Name</label>
+              <input type="text" class="form-control" id="fullname4" placeholder="Fullname...">
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary btn-md">Register</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Jobstreet</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="d-flex justify-content-center">
+        <button href="#" class="btn-outline-danger" onclick="signOut();" id="show-signout">Sign out</bu>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <form id="search" method="POST" class="form-inline my-2 my-lg-0">
+          <input id="what" class="form-control mr-sm-2" type="search" placeholder="Keywords" aria-label="Search">
+          <input id="where" class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">🔍</button>
+        </form>
+        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+        <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7">
+          <div>
+            <div>
+              <p>JOBS</p>
+            </div>
+            <ul id="list-jobs" class="list-group list-group-flush"></ul>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div>
+            <p>NEWS</p>
+          </div>
+          <div>
+            <div class="list-group" style="height: 415px; overflow: scroll;" id='listNews'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/js/index.js"></script>
+
+  <script src="/js/job.js"></script>
+</body>
+
+</html>
